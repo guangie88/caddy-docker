@@ -10,16 +10,18 @@ git clone "${REPO_GIT_URL}" -b "${REPO_REV}"
 
 # Combine with plugins.yml
 cp plugins.yml plugins-labels.yml
-echo "labels: ${PLUGINS}" >> plugins-labels.yml
+echo "labels: \"${PLUGINS}\"" >> plugins-labels.yml
 
 MAIN_SRC=$(cat <<EOM
 package main
 
 import (
 	"github.com/mholt/caddy/caddy/caddymain"
+{%- if c.labels != "" %}
 {%- for label in c.labels | split(pat=",") %}
 	_ "{{ c.plugins[label] }}"
 {%- endfor %}
+{%- endif %}
 )
 
 func main() {

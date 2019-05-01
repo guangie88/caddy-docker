@@ -17,19 +17,7 @@ matrix:
     - REPO_GIT_URL=https://github.com/mholt/caddy.git
     - REPO_REV=v1.0.0
     - PLUGIN_LABEL=lite
-    - PLUGINS=http-expires,http-filter
-  - services: docker
-    env:
-    - REPO_GIT_URL=https://github.com/mholt/caddy.git
-    - REPO_REV=v0.11.5
-    - PLUGIN_LABEL=base
-    - PLUGINS=
-  - services: docker
-    env:
-    - REPO_GIT_URL=https://github.com/mholt/caddy.git
-    - REPO_REV=v0.11.5
-    - PLUGIN_LABEL=lite
-    - PLUGINS=http-expires,http-filter
+    - PLUGINS=http-filter
   - services: docker
     env:
     - REPO_GIT_URL=https://github.com/guangie88/caddy.git
@@ -41,7 +29,7 @@ matrix:
     - REPO_GIT_URL=https://github.com/guangie88/caddy.git
     - REPO_REV=gzip-content-type
     - PLUGIN_LABEL=lite
-    - PLUGINS=http-expires,http-filter
+    - PLUGINS=http-filter
   
 script:
 - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
