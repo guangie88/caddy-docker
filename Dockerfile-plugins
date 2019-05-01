@@ -1,0 +1,4 @@
+FROM python:3.7
+
+COPY ./update-plugins.py ./
+RUN python3 -m pip install beautifulsoup4 pyyaml requests

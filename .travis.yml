@@ -1,0 +1,37 @@
+language: bash
+
+env:
+  global:
+  - IMAGE_NAME=${DOCKER_USERNAME}/caddy-custom
+
+matrix:
+  include:
+  - services: docker
+    env:
+    - REPO_GIT_URL=https://github.com/mholt/caddy.git
+    - REPO_REV=v1.0.0
+    - PLUGIN_LABEL=base
+    - PLUGINS=
+  - services: docker
+    env:
+    - REPO_GIT_URL=https://github.com/mholt/caddy.git
+    - REPO_REV=v1.0.0
+    - PLUGIN_LABEL=lite
+    - PLUGINS=http-filter
+  
+script:
+- docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+- TAG_NAME=${REPO_REV}_${PLUGIN_LABEL}
+- FULL_IMAGE_NAME="${IMAGE_NAME}:${TAG_NAME}"
+- |-
+  docker build . -t ${FULL_IMAGE_NAME} \
+    --build-arg REPO_GIT_URL=${REPO_GIT_URL} \
+    --build-arg REPO_REV=${REPO_REV} \
+    --build-arg PLUGINS=${PLUGINS} \
+    ;
+# Just push, doesn't matter if it's TRAVIS_PULL_REQUEST false/true
+- docker push ${FULL_IMAGE_NAME};
+
+branches:
+  only:
+  - master
