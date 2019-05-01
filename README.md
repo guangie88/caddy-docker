@@ -3,6 +3,24 @@
 An opinionated set-up to get no telemetry Caddy Docker image with various sets
 of plugins.
 
+## How to build Docker image
+
+As an example, you will need to fill the following variables:
+
+- `REPO_REV`
+- `PLUGINS`
+
+See the example run below for better idea:
+
+```bash
+# For PLUGINS, replace all dots with hyphens as shown below
+REPO_REV=v1.0.0
+PLUGINS=http-filter
+docker build . \
+    --build-arg REPO_REV=${REPO_REV} \
+    --build-arg PLUGINS=${PLUGINS}
+```
+
 ## How to generate Travis script from template
 
 You will need `tera`, which you can get by either of the following methods:
