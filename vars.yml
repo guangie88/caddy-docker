@@ -2,9 +2,6 @@ builds:
 - url: https://github.com/mholt/caddy.git
   revs:
   - v1.0.0
-- url: https://github.com/guangie88/caddy.git
-  revs:
-  - gzip-content-type
 
 plugins:
   base: []
