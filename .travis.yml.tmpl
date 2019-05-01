@@ -6,15 +6,15 @@ env:
 
 matrix:
   include:
-{%- for b in builds %}
-{%- for rev in b.revs %}
-{%- for package in b.packages %}
+{%- for build in c.builds %}
+{%- for rev in build.revs %}
+{%- for label, plugins in c.plugins %}
   - services: docker
     env:
-    - REPO_GIT_URL={{ b.url }}
+    - REPO_GIT_URL={{ build.url }}
     - REPO_REV={{ rev }}
-    - PLUGIN_LABEL={{ package }}
-    - PLUGINS={{ plugins[package] | join(',') }}
+    - PLUGIN_LABEL={{ label }}
+    - PLUGINS={{ plugins | join(sep=",") }}
 {%- endfor %}
 {%- endfor %}
 {%- endfor %}

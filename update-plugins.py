@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+from bs4 import BeautifulSoup
+import re
 import requests
 from urllib.parse import urljoin
-import time
-import re
-from bs4 import BeautifulSoup
+import yaml
+import sys
 
 # Set the URL you want to webscrape from
 START_URL = 'https://caddyserver.com/docs/docker'
@@ -22,16 +23,20 @@ def scrape_plugin_anchors(url):
 def scrape_repo_url(plugin_url):
     response = requests.get(plugin_url)
     soup = BeautifulSoup(response.text, "html.parser")
-    return soup.find('b', text='Plugin Website').find_next('a').attrs['href']
+    href = soup.find('b', text='Plugin Website').find_next('a').attrs['href']
+    return re.compile('^http://').sub('', re.compile('^https://').sub('', href))
 
 
-def generate_mapping(base_url):
+def generate_plugin_pairs(base_url):
     def generate_plugin_page_url(url):
         return urljoin(base_url, url)
 
     def generate_mapping_helper(anchor):
-        label = anchor.text
+        # Convert dot to dash because it is difficult to work with dot for keys
+        label = anchor.text.replace('.', '-')
         url = anchor.attrs['href']
+
+        print('Processing {}...'.format(label), file=sys.stderr)
         
         # Form the page URL first
         plugin_url = generate_plugin_page_url(url)
@@ -43,12 +48,16 @@ def generate_mapping(base_url):
     return generate_mapping_helper
 
 
+def generate_plugin_map(pairs):
+    return dict(pairs)
+
+
 def main():
     anchors = scrape_plugin_anchors(START_URL)
-    plugins = map(generate_mapping(BASE_URL), anchors)
+    plugins = map(generate_plugin_pairs(BASE_URL), anchors)
+    plugin_map = generate_plugin_map(plugins)
 
-    for p in plugins:
-        print(p)
+    print(yaml.dump(dict(plugins=plugin_map)))
 
 
 if __name__ == "__main__":

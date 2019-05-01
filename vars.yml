@@ -3,13 +3,11 @@ builds:
   revs:
   - v1.0.0
   - v0.11.5
-  packages:
-  - lite
-  - standard
+- url: https://github.com/guangie88/caddy.git
+  revs:
+  - gzip-content-type
 
 plugins:
+  base: []
   lite:
-  - http.filter
-  standard:
-  - http.filter
-  - http.gzip
+  - http-filter

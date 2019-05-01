@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
-if ! which jinja2 >/dev/null; then
-    echo "Run \"python3 -m pip install --user jinja2-cli[yaml]\" to install jinja2 first."
+if ! which tera >/dev/null; then
+    echo "Run \"cargo install tera-cli\" to install tera first.\nLinux users may download from https://github.com/guangie88/tera-cli/releases instead."
+    return 1
 fi
 
-jinja2 .travis.yml.tmpl vars.yml > .travis.yml
-echo "DONE!"
+tera -f .travis.yml.tmpl --yaml vars.yml > .travis.yml
+echo "Successfully applied template into .travis.yml!"
