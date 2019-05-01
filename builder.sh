@@ -3,6 +3,7 @@ set -euo pipefail
 
 readonly REPO_GIT_URL=$1
 readonly REPO_REV=$2
+readonly PLUGINS=$3
 
 readonly CADDY_MAIN_DIR=caddy/caddy
 

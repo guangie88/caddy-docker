@@ -17,9 +17,10 @@ COPY ./builder.sh /workdir/
 
 ARG REPO_GIT_URL=https://github.com/mholt/caddy.git
 ARG REPO_REV=v1.0.0
+ARG PLUGINS=
 
 # Build the binary
-RUN ./builder.sh "${REPO_GIT_URL}" "${REPO_REV}"
+RUN ./builder.sh "${REPO_GIT_URL}" "${REPO_REV}" "${PLUGINS}"
 
 # Compress the binary
 RUN upx --best caddy

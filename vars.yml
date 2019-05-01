@@ -1,0 +1,15 @@
+builds:
+- url: https://github.com/mholt/caddy.git
+  revs:
+  - v1.0.0
+  - v0.11.5
+  packages:
+  - lite
+  - standard
+
+plugins:
+  lite:
+  - http.filter
+  standard:
+  - http.filter
+  - http.gzip
