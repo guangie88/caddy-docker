@@ -6,9 +6,9 @@ env:
 
 matrix:
   include:
-{%- for build in c.builds %}
+{%- for build in builds %}
 {%- for rev in build.revs %}
-{%- for label, plugins in c.plugins %}
+{%- for label, plugins in plugins %}
   - services: docker
     env:
     - REPO_GIT_URL={{ build.url }}

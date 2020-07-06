@@ -8,14 +8,14 @@ matrix:
   include:
   - services: docker
     env:
-    - REPO_GIT_URL=https://github.com/mholt/caddy.git
-    - REPO_REV=v1.0.0
+    - REPO_GIT_URL=https://github.com/caddyserver/caddy.git
+    - REPO_REV=v1.0.5
     - PLUGIN_LABEL=base
     - PLUGINS=
   - services: docker
     env:
-    - REPO_GIT_URL=https://github.com/mholt/caddy.git
-    - REPO_REV=v1.0.0
+    - REPO_GIT_URL=https://github.com/caddyserver/caddy.git
+    - REPO_REV=v1.0.5
     - PLUGIN_LABEL=lite
     - PLUGINS=http-filter
   - services: docker

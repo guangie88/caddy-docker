@@ -16,7 +16,7 @@ MAIN_SRC=$(cat <<EOM
 package main
 
 import (
-	"github.com/mholt/caddy/caddy/caddymain"
+	"github.com/caddyserver/caddy/caddy/caddymain"
 {%- if c.labels != "" %}
 {%- for label in c.labels | split(pat=",") %}
 	_ "{{ c.plugins[label] }}"
