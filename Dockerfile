@@ -1,4 +1,4 @@
-FROM golang:1.12-alpine as builder
+FROM golang:1.14-alpine as builder
 
 # For compressing binary
 RUN set -euo pipefail && \
@@ -21,17 +21,17 @@ RUN apk add --no-cache gcc git musl-dev
 WORKDIR /workdir
 COPY ./build.sh ./plugins.yml /workdir/
 
-ARG REPO_GIT_URL=https://github.com/mholt/caddy.git
-ARG REPO_REV=v1.0.0
+ARG REPO_GIT_URL=https://github.com/caddyserver/caddy.git
+ARG REPO_REV=v1.0.5
 ARG PLUGINS=
 
 # Build the binary
 RUN ./build.sh "${REPO_GIT_URL}" "${REPO_REV}" "${PLUGINS}"
 
 # Compress the binary
-RUN upx --best caddy
+RUN upx --lzma caddy
 
-FROM alpine:3.9 as release
+FROM alpine:3.12 as release
 RUN apk add --no-cache ca-certificates
 COPY --from=builder /workdir/caddy /usr/local/bin/
 COPY ./run.sh ./

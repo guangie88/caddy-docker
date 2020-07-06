@@ -14,7 +14,7 @@ See the example run below for better idea:
 
 ```bash
 # For PLUGINS, replace all dots with hyphens as shown below
-REPO_REV=v1.0.0
+REPO_REV=v1.0.5
 PLUGINS=http-filter
 docker build . \
     --build-arg REPO_REV=${REPO_REV} \
@@ -32,15 +32,15 @@ Get `cargo` which you can get by install from <https://rustup.rs/>.
 Once `cargo` is available, run:
 
 ```bash
-cargo install tera-cli
+cargo install tera-cli --version=^0.4.0
 ```
 
 This works for most major operating systems.
 
 ### Method 2
 
-If you are a Linux user, simply download from:
-<https://github.com/guangie88/tera-cli/releases>
+For Linux user, you can download Tera CLI v0.4 at
+<https://github.com/guangie88/tera-cli/releases> and place it in `PATH`.
 
 ## How to generate updated plugins from template
 
